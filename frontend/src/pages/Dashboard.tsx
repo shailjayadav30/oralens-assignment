@@ -14,7 +14,7 @@ const Dashboard: React.FC = () => {
     file: null,
   });
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
@@ -67,17 +67,18 @@ const Dashboard: React.FC = () => {
             </div>
             <div className="mb-4">
               <label htmlFor="age" className="block text-sm font-medium text-gray-700">Age</label>
-              <input
-                type="number"
+              <select
                 name="age"
                 value={formData.age}
                 onChange={handleChange}
                 required
-                min="0"
-                max="120"
-                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                placeholder="Enter your age"
-              />
+                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              >
+                <option value="" disabled>Select your age</option>
+                {Array.from({ length: 121 }, (_, i) => (
+                  <option key={i} value={i}>{i}</option>
+                ))}
+              </select>
             </div>
             <div className="mb-4">
               <label htmlFor="file" className="block text-sm font-medium text-gray-700">Upload File</label>
@@ -101,7 +102,7 @@ const Dashboard: React.FC = () => {
               Submit Information
             </button>
           </div>
-        </ form>
+        </form>
       </div>
     </div>
   );
